@@ -1,4 +1,4 @@
-import { AppError } from './../../common/erorrs';
+import { AppError } from '../../common/constants/erorrs';
 import { CreateUserDTO } from './dto/index';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
@@ -17,10 +17,6 @@ export class UserService {
       return this.userRepository.findOne({ where: { email } });
    }
    async createUser(dto: CreateUserDTO): Promise<CreateUserDTO> {
-      const existUser = await this.findUserByEmail(dto.email);
-      if (existUser) {
-         throw new BadRequestException(AppError.USER_EXIST);
-      }
       dto.password = await this.hashPassport(dto.password);
       await this.userRepository.create({
          firstName: dto.firstName,
