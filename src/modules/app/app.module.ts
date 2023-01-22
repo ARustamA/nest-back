@@ -1,3 +1,4 @@
+import { TokenModule } from './../token/token.module';
 import { AuthModule } from './../auth/auth.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -30,6 +31,7 @@ import { User } from '../user/models/user.model';
     }),
     UserModule,
     AuthModule,
+    TokenModule,
   ],
   controllers: [AppController],
   providers: [AppService],
