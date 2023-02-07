@@ -1,3 +1,6 @@
+import { JwtStrategy } from './../../strategy/index';
+import { TokenModule } from './../token/token.module';
+import { AuthModule } from './../auth/auth.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,7 +13,7 @@ import { User } from '../user/models/user.model';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [configurations],
+      load: [configurations]
     }),
     SequelizeModule.forRootAsync({
       imports: [ConfigModule],
@@ -24,12 +27,14 @@ import { User } from '../user/models/user.model';
         database: configService.get('db_name'),
         synchronize: true,
         autoLoadModels: true,
-        models: [User],
-      }),
+        models: [User]
+      })
     }),
     UserModule,
+    AuthModule,
+    TokenModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy]
 })
 export class AppModule {}
