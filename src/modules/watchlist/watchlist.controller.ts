@@ -18,7 +18,7 @@ export class WatchlistController {
     return;
   }
 
-  @Patch('updete')
+  @Patch('update')
   updateAsset() {
     return;
   }
