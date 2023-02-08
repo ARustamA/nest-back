@@ -1,8 +1,8 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from './../../guards/jwt-guard';
-import { CreateUserDTO, UpdateUserDto } from './dto/index';
+import { UpdateUserDto } from './dto/index';
 import { UserService } from './user.service';
-import { Body, Controller, Delete, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Patch, Req, UseGuards } from '@nestjs/common';
 
 @Controller('users')
 export class UserController {
