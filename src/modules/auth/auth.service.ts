@@ -22,7 +22,7 @@ export class AuthService {
     return this.userService.createUser(dto);
   }
 
-  async loginUser(dto: UserLoginDTO): Promise<AuthUserResponse> {
+  async loginUser(dto: UserLoginDTO): Promise<any> {
     const existUser = await this.userService.findUserByEmail(dto.email);
     if (!existUser) throw new BadRequestException(AppError.USER_NOT_EXIST);
     const validatePassword = await bcrypt.compare(dto.password, existUser.password);
@@ -31,6 +31,6 @@ export class AuthService {
     const user = await this.userService.publicUser(dto.email);
 
     const token = await this.tokenService.generateJwtToken(user);
-    return { ...user, token };
+    return { user, token };
   }
 }
