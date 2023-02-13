@@ -1,3 +1,4 @@
+import { WatchlistModule } from './../watchlist/watchlist.module';
 import { JwtStrategy } from './../../strategy/index';
 import { TokenModule } from './../token/token.module';
 import { AuthModule } from './../auth/auth.module';
@@ -9,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config/dist';
 import configurations from '../../configurations';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from '../user/models/user.model';
+import { WatchList } from '../watchlist/models/watchlist.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,12 +29,13 @@ import { User } from '../user/models/user.model';
         database: configService.get('db_name'),
         synchronize: true,
         autoLoadModels: true,
-        models: [User]
+        models: [User, WatchList]
       })
     }),
     UserModule,
     AuthModule,
-    TokenModule
+    TokenModule,
+    WatchlistModule
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy]

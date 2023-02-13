@@ -1,8 +1,8 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from './../../guards/jwt-guard';
-import { CreateUserDTO, UpdateUserDto } from './dto/index';
+import { UpdateUserDto } from './dto/index';
 import { UserService } from './user.service';
-import { Body, Controller, Delete, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Patch, Req, UseGuards } from '@nestjs/common';
 
 @Controller('users')
 export class UserController {
@@ -18,7 +18,7 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Delete()
-  deleteUser(@Req() request) {
+  deleteUser(@Req() request): Promise<boolean> {
     const user = request.user;
     return this.userService.deleteUser(user.email);
   }
