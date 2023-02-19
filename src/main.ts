@@ -5,7 +5,11 @@ import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist';
 import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: ['http://127.0.0.1:5173']
+    }
+  });
   const configService = app.get(ConfigService);
   const port = configService.get('port');
   app.useGlobalPipes(new ValidationPipe());

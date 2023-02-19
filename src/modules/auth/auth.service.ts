@@ -14,13 +14,14 @@ export class AuthService {
     private readonly tokenService: TokenService
   ) {}
 
-  async registerUser(dto: CreateUserDTO): Promise<CreateUserDTO> {
+  async registerUser(dto: CreateUserDTO): Promise<AuthUserResponse> {
     try {
       const existUser = await this.userService.findUserByEmail(dto.email);
       if (existUser) {
         throw new BadRequestException(AppError.USER_EMAIL_EXIST);
       }
-      return this.userService.createUser(dto);
+      await this.userService.createUser(dto);
+      return this.userService.publicUser(dto.email);
     } catch (error) {
       throw new Error(error);
     }
@@ -33,10 +34,7 @@ export class AuthService {
       const validatePassword = await bcrypt.compare(dto.password, existUser.password);
       if (!validatePassword) throw new BadRequestException(AppError.WRONG_DATA);
 
-      const user = await this.userService.publicUser(dto.email);
-
-      const token = await this.tokenService.generateJwtToken(user);
-      return { user, token };
+      return this.userService.publicUser(dto.email);
     } catch (error) {
       throw new Error(error);
     }
