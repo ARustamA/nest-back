@@ -1,5 +1,5 @@
 import { UserLoginDTO } from './dto/index';
-import { AppError } from './../../common/constants/erorrs';
+import { AppError } from './../../common/constants/errors';
 import { CreateUserDTO } from './../user/dto/index';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
